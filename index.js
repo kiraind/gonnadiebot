@@ -8,6 +8,7 @@ const subscribers_path = 'data/subscribers.json'
 
 const {
     TELEGRAM_TOKEN,
+    PROXY,
     PROXY_SOCKS5_HOST,
     PROXY_SOCKS5_PORT,
     PROXY_SOCKS5_USERNAME,
@@ -19,17 +20,19 @@ if(!TELEGRAM_TOKEN) {
 }
 
 if(
-    !PROXY_SOCKS5_HOST     ||
-    !PROXY_SOCKS5_PORT     ||
-    !PROXY_SOCKS5_USERNAME ||
-    !PROXY_SOCKS5_PASSWORD
+    PROXY && (
+        !PROXY_SOCKS5_HOST     ||
+        !PROXY_SOCKS5_PORT     ||
+        !PROXY_SOCKS5_USERNAME ||
+        !PROXY_SOCKS5_PASSWORD
+    )
 ) {
     throw new Error('Please specify PROXY_SOCKS5_HOST, PROXY_SOCKS5_PORT, PROXY_SOCKS5_USERNAME, PROXY_SOCKS5_PASSWORD as env variables')
 }
 
 const bot = new TelegramBot(TELEGRAM_TOKEN, {
     polling: true,
-    request: {
+    request: PROXY ? {
 		agentClass: Agent,
 		agentOptions: {
 			socksHost: PROXY_SOCKS5_HOST,
@@ -37,7 +40,7 @@ const bot = new TelegramBot(TELEGRAM_TOKEN, {
 			socksUsername: PROXY_SOCKS5_USERNAME,
 			socksPassword: PROXY_SOCKS5_PASSWORD
 		}
-	}
+	} : undefined
 })
 
 bot.on('message', async msg => {
