@@ -1,0 +1,27 @@
+{
+    "name": "gonnadiebot",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/kiraind/gonnadiebot.git"
+    },
+    "keywords": [
+        "telegram",
+        "bot"
+    ],
+    "author": "kiraind",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/kiraind/gonnadiebot/issues"
+    },
+    "homepage": "https://github.com/kiraind/gonnadiebot#readme",
+    "dependencies": {
+        "node-telegram-bot-api": "^0.40.0",
+        "socks5-https-client": "^1.2.1"
+    }
+}
